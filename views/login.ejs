@@ -32,7 +32,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" method="POST">
 					<span class="login100-form-title p-b-43">
 						Faça login para continuar
 					</span>
@@ -46,7 +46,7 @@
 					
 					
 					<div class="wrap-input100 validate-input" data-validate="Insira a senha">
-						<input class="input100" type="password" name="pass">
+						<input class="input100" type="password" name="password">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Senha</span>
 					</div>
@@ -54,7 +54,7 @@
 					<div class="flex-sb-m w-full p-t-3 p-b-32 float-right">
 						<div class="col-12">
 							<div style="text-align: right;">
-								<a href="#" class="txt1">
+								<a href="/forgot" class="txt1">
 									Esqueceu sua senha?
 								</a>
 							</div>
@@ -63,7 +63,7 @@
 			
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button type="submit" class="login100-form-btn">
 							Login
 						</button>
 					</div>

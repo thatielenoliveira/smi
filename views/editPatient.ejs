@@ -10,15 +10,15 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/plugins/images/favicon.png">
     <title>Editar Paciente</title>
     <!-- Bootstrap Core CSS -->
-    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Menu CSS -->
     <link href="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
     <!-- animation CSS -->
-    <link href="css/animate.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <!-- color CSS -->
-    <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">
+    <link href="/css/colors/blue-dark.css" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -96,7 +96,7 @@
                     <div class="col-md-12 col-xs-12">
                         <div class="white-box">
                             <form class="form-horizontal form-material" action="" method="POST">
-
+                                <% data.forEach(function(patient) { %>
                                 <hr>
                                 <h3>Dados do Paciente</h3> 
                                 <hr>
@@ -104,23 +104,36 @@
                                 <div class="form-group">
                                     <label class="col-md-12">Nome Completo</label>
                                     <div class="col-md-12">
-                                        <input type="text" name="fullName" placeholder="Nome do Paciente" class="form-control form-control-line"> </div>
+                                        <input type="text" name="fullName" placeholder="Nome do Paciente" class="form-control form-control-line" 
+                                        value="<%= patient.fullName %>"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Nome da Mãe</label>
                                     <div class="col-md-12">
-                                        <input type="text" name="mothersName" placeholder="Nome da Mãe do Paciente" class="form-control form-control-line"> </div>
+                                        <input type="text" name="mothersName" placeholder="Nome da Mãe do Paciente" class="form-control form-control-line"
+                                        value="<%= patient.mothersName %>"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3">Data de Nascimento</label>
                                     <div class="col-md-3">
-                                        <input type="text" name="birthDate" max-lenght="8" data-mask="00/00/0000" placeholder="Data de Nascimento do Paciente" class="form-control form-control-line"> </div>
+                                        <input type="text" name="birthDate" max-lenght="8" data-mask="00/00/0000" placeholder="Data de Nascimento do Paciente" 
+                                        class="form-control form-control-line" value="<%= patient.birthDate %>"> </div>
                                     <label class="col-sm-3">Gênero</label>
                                     <div class="col-sm-3">
                                         <select name="gender" class="form-control form-control-line">
-                                            <option value="Masculino">Masculino</option>
+                                            <% if (patient.gender === "Masculino") { %>
+                                            <option selected value="Masculino">Masculino</option>
                                             <option value="Feminino">Feminino</option>
                                             <option value="Outro">Prefiro não informar</option>
+                                            <% } else if (patient.gender === "Feminino") { %>
+                                            <option value="Masculino">Masculino</option>
+                                            <option selected value="Feminino">Feminino</option>
+                                            <option value="Outro">Prefiro não informar</option>
+                                            <% } else { %>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Feminino">Feminino</option>
+                                            <option selected value="Outro">Prefiro não informar</option>
+                                            <% } %>
                                         </select>
                                     </div>
                                 </div>
@@ -131,32 +144,39 @@
                                 <div class="form-group">
                                     <label class="col-md-3">CEP</label>
                                     <div class="col-md-3">
-                                        <input type="text" name="postalCode" data-mask="00.000-000" placeholder="CEP" class="form-control form-control-line"> </div>
+                                        <input type="text" name="postalCode" data-mask="00.000-000" placeholder="CEP" class="form-control form-control-line"
+                                        value="<%= patient.postalCode %>"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3">Rua</label>
                                     <div class="col-md-6">
-                                        <input type="text" name="streetName" placeholder="Rua, Avenida, Travessa" class="form-control form-control-line"> </div>
+                                        <input type="text" name="streetName" placeholder="Rua, Avenida, Travessa" class="form-control form-control-line"
+                                        value="<%= patient.streetName %>"> </div>
                                         <label class="col-md-1">Número</label>
                                     <div class="col-md-2">
-                                        <input type="text" name="houseNumber" placeholder="Número" class="form-control form-control-line"> </div>
+                                        <input type="text" name="houseNumber" placeholder="Número" class="form-control form-control-line"
+                                        value="<%= patient.houseNumber %>"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3">Complemento</label>
                                     <div class="col-md-3">
-                                        <input type="text" name="complement" placeholder="Complemento" class="form-control form-control-line"> </div>
+                                        <input type="text" name="complement" placeholder="Complemento" class="form-control form-control-line"
+                                        value="<%= patient.complement %>"> </div>
                                         <label class="col-md-3">Bairro</label>
                                     <div class="col-md-3">
-                                        <input type="text" name="district" placeholder="Bairro" class="form-control form-control-line"> </div>
+                                        <input type="text" name="district" placeholder="Bairro" class="form-control form-control-line"
+                                        value="<%= patient.district %>"> </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3">Cidade</label>
                                     <div class="col-md-3">
-                                        <input type="text" name="city" placeholder="Cidade" class="form-control form-control-line"> </div>
+                                        <input type="text" name="city" placeholder="Cidade" class="form-control form-control-line"
+                                        value="<%= patient.city %>"> </div>
                                         <label class="col-md-3">UF</label>
                                     <div class="col-md-3">
-                                        <input type="text" name="state" placeholder="Ex.: AM, AC..." class="form-control form-control-line"> </div>
+                                        <input type="text" name="state" placeholder="Ex.: AM, AC..." class="form-control form-control-line"
+                                        value="<%= patient.state %>"> </div>
                                 </div>
 
 
@@ -167,21 +187,25 @@
                                 <div class="form-group">
                                     <label class="col-md-3">Telefone</label>
                                     <div class="col-md-3">
-                                        <input type="text" data-mask="(00) 00000-0000" max-lenght="11" name="phone" placeholder="(00) 00000-0000" class="form-control form-control-line"> </div>
+                                        <input type="text" data-mask="(00) 00000-0000" max-lenght="11" name="phone" placeholder="(00) 00000-0000" 
+                                        class="form-control form-control-line" value="<%= patient.phone %>"> </div>
                                     <label class="col-md-3">Telefone de Emergência</label>
                                     <div class="col-md-3">
-                                        <input type="text" data-mask="(00) 00000-0000" max-lenght="11" name="emergencyPhone" placeholder="(00) 00000-0000" class="form-control form-control-line"> </div>
+                                        <input type="text" data-mask="(00) 00000-0000" max-lenght="11" name="emergencyPhone" placeholder="(00) 00000-0000" 
+                                        class="form-control form-control-line" value="<%= patient.emergencyPhone %>"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Mora com</label>
                                     <div class="col-md-12">
-                                        <input type="text" name="liveWith" placeholder="Nome do Responsável" class="form-control form-control-line"> </div>
+                                        <input type="text" name="liveWith" placeholder="Nome do Responsável" class="form-control form-control-line"
+                                        value="<%= patient.liveWith %>"> </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button class="btn btn-success pull-right" type="submit">Adicionar</button>
+                                        <button class="btn btn-success pull-right" type="submit">Editar</button>
                                     </div>
                                 </div>
+                                <% }) %>
                             </form>
                         </div>
                     </div>
@@ -197,17 +221,17 @@
     <!-- jQuery -->
     <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Menu Plugin JavaScript -->
     <script src="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
     <!--slimscroll JavaScript -->
-    <script src="js/jquery.slimscroll.js"></script>
+    <script src="/js/jquery.slimscroll.js"></script>
     <!--Wave Effects -->
-    <script src="js/waves.js"></script>
+    <script src="/js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
-    <script src="js/custom.min.js"></script>
+    <script src="/js/custom.min.js"></script>
     <!-- Mask Field -->
-    <script type="text/javascript" src="//assets.locaweb.com.br/locastyle/2.0.6/javascripts/locastyle.js"></script>
+    <script type="text/javascript" src="http://assets.locaweb.com.br/locastyle/2.0.6/javascripts/locastyle.js"></script>
 </body>
 
 </html>

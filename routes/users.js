@@ -1,11 +1,12 @@
-const passport = require('passport');
-const notAuthenticate = require('../config/passport').notAuthenticate;
 const express = require('express');
+const passport = require('passport');
 const router = express.Router();
 
 const AuthController = require('../controllers/auth');
 const EmailController = require('../controllers/email');
 const UserController = require('../controllers/user');
+
+const notAuthenticate = require('../config/passport').notAuthenticate;
 
 router.get('/login', notAuthenticate, function (req, res, next) {
     res.render('login');

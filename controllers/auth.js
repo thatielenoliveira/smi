@@ -1,3 +1,5 @@
+const UserController = require('../controllers/user');
+
 module.exports.setCookie = function (req, res) {
     if (req.body.remember) {
         req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // Cookie expires after 30 days
@@ -14,4 +16,8 @@ module.exports.setCookie = function (req, res) {
 module.exports.logOut = function (req, res) {
     req.logOut();
     res.redirect('/login');
+}
+
+module.exports.isAdminMiddleware = function (req, res, next) {
+    UserController.isAdmin(req, res, next);
 }

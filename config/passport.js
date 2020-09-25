@@ -64,7 +64,7 @@ module.exports.authenticationMiddleware = function (req, res, next) {
 
 module.exports.notAuthenticate = function (req, res, next) {
     if (req.isAuthenticated()) {
-        return res.redirect('/');
+        return res.redirect('/home');
     }
     
     next();

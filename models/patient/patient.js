@@ -1,26 +1,22 @@
-var Sequelize = require('sequelize');
-
 module.exports = (sequelize, type) => {
   return sequelize.define('patients', {
-
-      fullName: {type: Sequelize.STRING, required: true},
-      mothersName: {type: Sequelize.STRING, required: true},
-      birthDate: {type: Sequelize.STRING, required: true},
-      gender: {type: Sequelize.STRING, required: true},
-      postalCode: {type: Sequelize.STRING, required: true},
-      streetName: {type: Sequelize.STRING, required: true},
-      houseNumber: {type: Sequelize.STRING, required: true},
-      complement: {type: Sequelize.STRING, required: false},
-      district: {type: Sequelize.STRING, required: true},
-      city: {type: Sequelize.STRING, required: true},
-      state: {type: Sequelize.STRING, required: true},
-      phone: {type: Sequelize.STRING, required: true},
-      liveWith: {type: Sequelize.STRING, required: true},
-      emergencyPhone: {type: Sequelize.STRING, required: true}
-    
+    fullName: { type: type.STRING, required: true },
+    mothersName: { type: type.STRING, required: true },
+    birthDate: { type: type.STRING, required: true },
+    gender: { type: type.STRING, required: true },
+    postalCode: { type: type.STRING, required: true },
+    streetName: { type: type.STRING, required: true },
+    houseNumber: { type: type.STRING, required: true },
+    complement: { type: type.STRING, required: false },
+    district: { type: type.STRING, required: true },
+    city: { type: type.STRING, required: true },
+    state: { type: type.STRING, required: true },
+    phone: { type: type.STRING, required: true },
+    liveWith: { type: type.STRING, required: true },
+    emergencyPhone: { type: type.STRING, required: true }
   },
-  { 
-    paranoid: true
-  });
+    {
+      paranoid: true
+    });
 }
 

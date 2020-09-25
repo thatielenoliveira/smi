@@ -8,58 +8,65 @@ const SALT_FACTOR = 10;
 
 module.exports.emailSenderForgotPassword = function(req, res){
     
-    async.waterfall([
-        function(done){
-            crypto.randomBytes(20, function(err, buf){
-                var token = buf.toString('hex');
-                done(err, token);
-            });
-        },
-        function(token, done){
-            userModel.findOne({email: req.body.email}, function(err, user){
-                if(!user){
-                    req.flash('error', 'Este e-mail não está cadastrado no sistema.');
-                    return res.redirect('/forgot');
-                }
+  async.waterfall(
+    [
+      function (done) {
 
-                user.resetPasswordToken = token;
-                user.resetPasswordExpires = Date.now() + 3600000;
+        crypto.randomBytes(20, function (error, buf) {
+          const token = buf.toString('hex');
+          done(error, token);
+        });
+      },
+      function (token, done) {
 
-                user.save(function(err){
-                    done(err, token, user);
-                });
-            });
-        },
-        function(token, user, done){
-            var smtpTransport = nodemailer.createTransport({
-                service: 'Gmail',
-                auth: {
-                    user: 'topereira@uea.edu.br',
-                    pass: process.env.EMAIL_PASSWORD
-                }
-            });
-            var mailOptions = {
-                to: user.email,
-                from: 'topereira@uea.edu.br',
-                subject: 'Redefina sua senha - SisPeD AGIN',
-                text: 'Você solicitou redefinição de senha no sistema SisPeD. ' + 
-                    'Este link tem a duração de 1 hora. Após este período, será necessário solicitar outro link.\n\n' +
-                    'Por favor, clique no link a seguir para redefinir sua senha:' +  '\n\n' +
-                    'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-                    'Caso não tenha solicitado isto, por favor, desconsidere este e-mail.\n\n' + '\n\n' +
-                    'Agência de Inovação da UEA - AGIN \n' +
-                    'Universidade do Estado do Amazonas - UEA'
-                    
-            };
-            smtpTransport.sendMail(mailOptions, function(err){
-                req.flash('success', "Um e-mail foi enviado para " + user.email + ' com instruções.');
-                done(err, 'done');
-            });
-        }
-    ], function(err){
-        if (err) return next (err);
-        res.redirect('/forgot');
-    });
+        userModel.findOne({ where: { email: req.body.email } }).then((user) => {
+          if (!user) {
+            req.flash('forgotError', 'Este e-mail não está cadastrado no sistema.');
+            return res.redirect('/forgot');
+          }
+
+          user.resetPasswordToken = token;
+          user.resetPasswordExpires = Date.now() + 3600000;
+
+          user.save().then((user) => {
+            done(null, token, user);
+          }).catch((error) => {
+            done(error, token, null);
+          });
+        });
+      },
+      function (token, user, done) {
+        const smtpTransport = nodemailer.createTransport({
+          service: 'Gmail',
+          auth: {
+            user: 'top.eng@uea.edu.br',
+            pass: process.env.EMAIL_PASSWORD
+          }
+        });
+        const mailOptions = {
+          to: user.email,
+          from: 'top.eng@uea.edu.br',
+          subject: 'Redefina sua senha',
+          text: 'Você solicitou redefinição de senha no sistema SMI\n\n' + 
+              'Este link tem a duração de 1 hora. Após este período, será necessário solicitar outro link.\n\n' +
+              'Por favor, clique no link a seguir para redefinir sua senha:' +  '\n\n' +
+              'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+              'Caso não tenha solicitado isto, por favor, desconsidere este e-mail.\n\n' + '\n\n' +
+              
+              'Sistema de Monitoramento de Idosos'
+
+        };
+        smtpTransport.sendMail(mailOptions, function (error) {
+          req.flash('forgotSuccess', 'Um e-mail foi enviado para ' + user.email + ' com instruções.');
+          done(error, 'done');
+        });
+      }
+    ], function (error) {
+      if (error) {
+        console.error(error);
+      }
+      res.redirect('/forgot');
+    });  
 }
 
 module.exports.emailSenderResetPassword = function(req, res){

@@ -6,12 +6,12 @@ require('dotenv').config();
 const connection = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
-    dialect: process.env.DB_DIALECT,
+    dialect: 'postgres',
     logging: false
 });
 
-const RoleModel = require('../models/role/role')(connection, Sequelize);
-const UserModel = require('../models/user/user')(connection, Sequelize);
+const RoleModel = require('../models/role')(connection, Sequelize);
+const UserModel = require('../models/user')(connection, Sequelize);
 
 connection.sync({ force: true }).then(() => {
     RoleModel.bulkCreate(

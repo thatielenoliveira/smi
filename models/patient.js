@@ -14,9 +14,6 @@ module.exports = (sequelize, type) => {
     phone: { type: type.STRING, required: true },
     liveWith: { type: type.STRING, required: true },
     emergencyPhone: { type: type.STRING, required: true }
-  },
-    {
-      paranoid: true
-    });
+  }, { paranoid: true });
 }
 

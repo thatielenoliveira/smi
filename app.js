@@ -1,20 +1,20 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var session = require('express-session');
-var passport = require('passport');
-var flash = require('express-flash');
-var passportConfig = require('./config/passport')(passport);
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('express-flash');
+
+require('./config/passport')(passport);
 require('dotenv').config();
 
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const apiRouter = require('./routes/api');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var apiRouter = require('./routes/api');
-
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,7 +24,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: {_expires : 7 * 24 * 60 * 60 * 1000}
+  cookie: { _expires: 7 * 24 * 60 * 60 * 1000 }
 }))
 
 app.use(flash());
@@ -42,12 +42,12 @@ app.use('/', usersRouter);
 app.use('/', apiRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

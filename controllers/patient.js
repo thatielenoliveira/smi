@@ -25,7 +25,7 @@ module.exports.createPatient = function (req, res) {
     });
 }
 
-module.exports.getPatients = function (req, res) {
+module.exports.findPatient = function (req, res) {
     PatientModel.findAll({ limit: 1, where: { id: req.params.id } }).then(function (entries) {
         if (entries) {
             res.render('editPatient', { data: entries });
@@ -36,6 +36,22 @@ module.exports.getPatients = function (req, res) {
         console.error(error);
     });
 }
+
+module.exports.getPatients = function (req, res) {
+    PatientModel.findAll().then(function (entries) {
+        if (entries) {
+
+            const currentYear = new Date().getFullYear();
+           
+            res.render('listPatients', {data: entries,  currentYear: currentYear });
+        } else {
+            console.log("no data exist for this id");
+        }
+    }, (error) => {
+        console.error(error);
+    });
+}
+
 
 module.exports.updatePatients = function (res, res) {
     PatientModel.update({

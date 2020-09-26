@@ -19,8 +19,12 @@ router.post('/createPatient', function (req, res, next) {
   PatientController.createPatient(req, res);
 });
 
-router.get('/editPatient/:id', function (req, res, next) {
+router.get('/patients', function (req, res, next) {
   PatientController.getPatients(req, res);
+});
+
+router.get('/editPatient/:id', function (req, res, next) {
+  PatientController.findPatient(req, res);
 });
 
 router.post('/editPatient/:id', function (req, res, next) {

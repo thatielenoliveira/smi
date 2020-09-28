@@ -31,6 +31,10 @@ router.post('/editPatient/:id', function (req, res, next) {
   PatientController.updatePatient(req, res);
 });
 
+router.get('/deletePatient/:id', function (req, res) {
+  PatientController.deletePatient(req, res);  
+});
+
 router.get('/',function (req, res) {
   res.redirect('/home');
 });

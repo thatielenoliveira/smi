@@ -57,22 +57,24 @@
                                 <h3>Dados do Paciente</h3> 
                                 <hr>
 
-                                <div class="form-group">
-                                    <label class="col-md-12">Nome Completo</label>
-                                    <div class="col-md-12">
-                                        <input type="text" name="fullName" placeholder="Nome do Paciente" class="form-control form-control-line"> </div>
+                                <div class="form-group col-md-12">
+                                    <label>Nome Completo</label>
+                                    <input type="text" name="fullName" placeholder="Nome do Paciente" class="form-control form-control-line">
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Nome da Mãe</label>
-                                    <div class="col-md-12">
-                                        <input type="text" name="mothersName" placeholder="Nome da Mãe do Paciente" class="form-control form-control-line"> </div>
+                                
+                                <div class="form-group col-md-12">
+                                    <label>Nome da Mãe</label>
+                                    <input type="text" name="mothersName" placeholder="Nome da Mãe do Paciente" class="form-control form-control-line">
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-3">Data de Nascimento</label>
-                                    <div class="col-md-3">
-                                        <input type="text" name="birthDate" max-lenght="8" data-mask="00/00/0000" placeholder="Data de Nascimento do Paciente" class="form-control form-control-line"> </div>
-                                    <label class="col-sm-3">Gênero</label>
-                                    <div class="col-sm-3">
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Data de Nascimento</label>
+                                        <input type="text" name="birthDate" max-lenght="8" data-mask="00/00/0000" placeholder="Data de Nascimento do Paciente" class="form-control form-control-line"> 
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label>Gênero</label>
                                         <select name="gender" class="form-control form-control-line">
                                             <option value="Masculino">Masculino</option>
                                             <option value="Feminino">Feminino</option>

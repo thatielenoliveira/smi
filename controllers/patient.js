@@ -53,7 +53,7 @@ module.exports.getPatients = function (req, res) {
 }
 
 
-module.exports.updatePatients = function (res, res) {
+module.exports.updatePatients = function (req, res) {
     PatientModel.update({
         fullName: req.body.fullName,
         mothersName: req.body.mothersName,
@@ -72,7 +72,21 @@ module.exports.updatePatients = function (res, res) {
     }, { where: { id: req.params.id } }).then((result) => {
         console.log(result);
         console.log('Patient Successfully Updated');
-        res.redirect('/');
+        res.redirect('/patients');
+    }, (error) => {
+        console.error(error);
+    });
+}
+
+module.exports.deletePatient = function (req, res) {
+    PatientModel.destroy({
+        where: {
+          id: req.params.id
+        }
+    }).then((user) => {
+        console.log(user);
+        console.log('Patient Successfully Deleted');
+        res.redirect('/patients');
     }, (error) => {
         console.error(error);
     });

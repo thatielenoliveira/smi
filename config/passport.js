@@ -5,7 +5,7 @@ const UserModel = require('./database').UserModel;
 const LocalStrategy = require('passport-local').Strategy
 
 function findUser(email, callback) {
-    UserModel.findOne({ where: { email: email } }).then((user) => {
+    UserModel.findOne({ where: { email }, raw: true, nested: true }).then((user) => {
         callback(null, user);
     }).catch(function (err) {
         callback(err, null);
@@ -13,7 +13,7 @@ function findUser(email, callback) {
 }
 
 function findUserById(id, callback) {
-    UserModel.findByPk(id).then((user) => {
+    UserModel.findByPk(id, { raw: true, nested: true }).then((user) => {
         callback(null, user);
     }).catch(function (err) {
         callback(err, null);

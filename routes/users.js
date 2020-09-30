@@ -18,8 +18,8 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/login'
     AuthController.setCookie(req, res);
 });
 
-router.delete('/logout', (req, res) => {
-    AuthController.logOut(req, res);
+router.get('/logout', (req, res) => {
+    AuthController.logout(req, res);
 });
 
 router.get('/forgot', function (req, res, next) {

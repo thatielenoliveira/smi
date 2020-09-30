@@ -17,21 +17,10 @@
             </a>
         </div>
 
-        <div class="pull-right">
-            <div class="nav-item dropdown mr-2">
-                <a class="nav-link dropdown-toggle top-right" href="#" role="button" data-toggle="dropdown">
-                    <img src="/plugins/images/users/user.png" alt="user-img" width="36" class="img-circle">
-                    <!-- <i class="fa fa-user"></i> -->
-                    <%- user.username.substring(0, user.username.indexOf("@")) %>
-                </a>
-
-                <div class="dropdown-menu dropdown-menu-right pull-right">
-                    <a class="dropdown-item" href="/logout">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /.navbar-header -->
-    <!-- /.navbar-top-links -->
-    <!-- /.navbar-static-side -->
+        <ul class="nav navbar-top-links navbar-right pull-right">
+            <li>
+                <a class="profile-pic" href="#"> <img src="/plugins/images/users/user.png" alt="user-img" width="36" class="img-circle">
+                    <b class="hidden-xs"><%- user.username.substring(0, user.username.indexOf("@"))  %></b> </a>
+            </li>
+        </ul>
 </nav>

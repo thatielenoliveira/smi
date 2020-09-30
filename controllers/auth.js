@@ -13,7 +13,7 @@ module.exports.setCookie = function (req, res) {
     res.redirect(redirectUrl);
 }
 
-module.exports.logOut = function (req, res) {
+module.exports.logout = function (req, res) {
     req.logOut();
     res.redirect('/login');
 }

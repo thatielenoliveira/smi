@@ -38,6 +38,7 @@ module.exports.findPatient = function (req, res) {
 }
 
 module.exports.getPatients = function (req, res) {
+    console.log(req.user.username);
     PatientModel.findAll().then(function (entries) {
         if (entries) {
 

@@ -43,6 +43,12 @@ app.use('/', usersRouter);
 app.use('/', apiRouter);
 app.use('/', patientsRouter);
 
+
+app.use(function (req, res, next) {
+  res.locals.req = req.session.user;
+  next();
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

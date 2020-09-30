@@ -7,6 +7,8 @@ const EmailController = require('../controllers/email');
 const UserController = require('../controllers/user');
 
 const notAuthenticate = require('../config/passport').notAuthenticate;
+const authenticationMiddleware = require('../config/passport').authenticationMiddleware;
+
 
 router.get('/login', notAuthenticate, function (req, res, next) {
     res.render('login');
@@ -36,23 +38,23 @@ router.post('/reset/:token', function (req, res) {
     EmailController.emailSenderResetPassword(req, res);
 });
 
-router.get('/users', function (req, res, next) {
+router.get('/users', authenticationMiddleware, function (req, res, next) {
     UserController.getUsers(req, res);
 });
 
-router.get('/createUser', function (req, res, next) {
+router.get('/createUser', authenticationMiddleware, function (req, res, next) {
     res.render('createUser');
 });
 
-router.post('/createUser', function (req, res, next) {
+router.post('/createUser', authenticationMiddleware, function (req, res, next) {
     UserController.createUser(req, res);
 });
 
-router.get('/editUser/:id', function (req, res, next) {
+router.get('/editUser/:id', authenticationMiddleware, function (req, res, next) {
     UserController.findUser(req, res);
   });
   
-router.post('/editUser/:id', function (req, res, next) {
+router.post('/editUser/:id', authenticationMiddleware, function (req, res, next) {
     UserController.updateUser(req, res);
 });
 
@@ -60,11 +62,11 @@ router.get('/editPassword/:id', function (req, res, next) {
     res.render('editUserPassword');
 });
 
-router.post('/editPassword/:id', function (req, res, next) {
+router.post('/editPassword/:id', authenticationMiddleware, function (req, res, next) {
     UserController.updateUserPassword(req, res);
 });
 
-router.get('/deleteUser/:id', function (req, res, next) {
+router.get('/deleteUser/:id', authenticationMiddleware, function (req, res, next) {
     UserController.deleteUser(req, res);
 });
 

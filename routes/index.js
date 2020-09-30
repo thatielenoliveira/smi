@@ -6,7 +6,7 @@ const isAdminMiddleware = require('../controllers/auth').isAdminMiddleware;
 
 // Testing admin middleware only, should be used to verify if user can access admin page 
 router.get('/home', authenticationMiddleware, isAdminMiddleware, function (req, res, next) {
-  res.send('index');
+  res.render('home');
 });
 
 router.get('/',function (req, res) {

@@ -70,7 +70,6 @@ module.exports.updatePatients = function (req, res) {
         liveWith: req.body.liveWith,
         emergencyPhone: req.body.emergencyPhone
     }, { where: { id: req.params.id } }).then((result) => {
-        console.log(result);
         console.log('Patient Successfully Updated');
         res.redirect('/patients');
     }, (error) => {
@@ -84,7 +83,6 @@ module.exports.deletePatient = function (req, res) {
           id: req.params.id
         }
     }).then((user) => {
-        console.log(user);
         console.log('Patient Successfully Deleted');
         res.redirect('/patients');
     }, (error) => {

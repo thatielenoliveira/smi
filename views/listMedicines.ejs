@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Medicamentos</title>
+    <%- include('./partials/header') %> 
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+    <div id="wrapper">
+        <!-- Navigation -->
+        
+        <%- include('./partials/side-bar') %>  
+
+        <!-- Left navbar-header -->
+        <%- include('./partials/left-navbar-header') %>
+        <!-- Left navbar-header end -->
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Medicamentos</h4> </div>
+                        <ol class="breadcrumb">
+                            <li><a href="#">Página Inicial</a></li>
+                            <li class="active">Medicamentos</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <!-- .row -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <div class="row">
+                                <div class="col-sm-11">
+                                    <h3 class="box-title">Pacientes</h3>
+                                </div>
+                                <div class="col-sm-1">
+                                    <a href="/insertMedicine" class="btn btn-primary pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect 
+                                    waves-light">Adicionar</a>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nome</th>
+                                            <th>Paciente</th>
+                                            <th>Dias</th>
+                                            <th>Opções</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% data.forEach(function(medicine) { %>
+                                            <tr>
+                                                <td><%- medicine.id %></td>
+                                                <td><%- medicine.name %></td>
+                                                <td><%- medicine.patient.fullName %></td>
+                                                <td><%- medicine.days %></td>
+                                                <td>
+                                                    <a class="btn btn-primary" 
+                                                    href="/editMedicine/<%= medicine.id %>">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a class="btn btn-danger"
+                                                    href="/deleteMedicine/<%= medicine.id %>">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2017 &copy; Pixel Admin brought to you by wrappixel.com </footer>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <!--slimscroll JavaScript -->
+    <script src="/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="/js/waves.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="/js/custom.min.js"></script>
+    <!-- Mask Field -->
+    <script type="text/javascript" src="http://assets.locaweb.com.br/locastyle/2.0.6/javascripts/locastyle.js"></script>
+</body>
+
+</html>

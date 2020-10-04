@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Editar Medicamento</title>
+    <%- include('./partials/header') %>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <%- include('./partials/side-bar') %>
+
+        <!-- Left navbar-header -->
+        <%- include('./partials/left-navbar-header') %>
+        <!-- Left navbar-header end -->
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Editar Medicamento</h4>
+                    </div>
+                    <ol class="breadcrumb">
+                        <li><a href="#">Página Inicial</a></li>
+                        <li><a href="/patients">Medicamentos</a></li>
+                        <li class="active">Editar Medicamento</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- /.row -->
+            <!-- .row -->
+            <div class="row">
+
+                <div class="col-md-12 col-xs-12">
+                    <div class="white-box">
+                        <form class="form-horizontal form-material" action="" method="POST">
+                            <div class="form-group ">
+                                <div class="col-md-12">
+                                    <label>Paciente</label>
+                                    <select name="patientId" class="form-control form-control-line">
+                                        <% data.forEach(function(patient) { %>
+                                        <option value="<%= patient.id%>"><%= patient.fullName%></option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                            <% medicines.forEach(function(medicine) { %>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Nome do Medicamento</label>
+                                    <input type="text" name="name" placeholder="Nome do Medicamento" value="<%- medicine.name %>"
+                                        class="form-control form-control-line">
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <div class="col-md-12">
+                                    <label>Quantidade</label>
+                                    <input type="text" name="amount" placeholder="Ex.: 1 comprimido" value="<%- medicine.amount %>"
+                                        class="form-control form-control-line">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Dias</label>
+                                    <input type="text" name="days" value="<%- medicine.days %>" placeholder="Quantidade de dias do tratamento"
+                                        class="form-control form-control-line">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Intervalo entre as dosas</label>
+                                    <select name="schedule" class="form-control form-control-line">
+                                        <option value="24h">24h</option>
+                                        <option value="12h/12h">12h/12h</option>
+                                        <option value="8h/8h">8h/8h</option>
+                                        <option value="6h/6h">6h/6h</option>
+                                        <option value="4h/4h">4h/4h</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Hora de Início</label>
+                                    <select name="startTime" class="form-control form-control-line">
+                                        <option value="00h">00h</option>
+                                        <option value="01h">01h</option>
+                                        <option value="02h">02h</option>
+                                        <option value="03h">03h</option>
+                                        <option value="04h">04h</option>
+                                        <option value="05h">05h</option>
+                                        <option value="06h">06h</option>
+                                        <option value="07h">07h</option>
+                                        <option value="08h">08h</option>
+                                        <option value="09h">09h</option>
+                                        <option value="10h">10h</option>
+                                        <option value="11h">11h</option>
+                                        <option value="12h">12h</option>
+                                        <option value="13h">13h</option>
+                                        <option value="14h">14h</option>
+                                        <option value="15h">15h</option>
+                                        <option value="16h">16h</option>
+                                        <option value="17h">17h</option>
+                                        <option value="18h">18h</option>
+                                        <option value="19h">19h</option>
+                                        <option value="20h">20h</option>
+                                        <option value="21h">21h</option>
+                                        <option value="22h">22h</option>
+                                        <option value="23h">23h</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <% }) %>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button class="btn btn-success pull-right" type="submit">Editar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+        <footer class="footer text-center"> 2017 &copy; Pixel Admin brought to you by wrappixel.com </footer>
+    </div>
+    <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <!--slimscroll JavaScript -->
+    <script src="/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="/js/waves.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="/js/custom.min.js"></script>
+</body>
+
+</html>

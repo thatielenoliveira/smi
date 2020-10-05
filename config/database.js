@@ -19,4 +19,4 @@ connection.sync({ alter: { drop: false } }).then(() => {
   console.log('Database and Tables Synced');
 });
 
-module.exports = { PatientModel, MedicineModel, RoleModel, UserModel, FallModel };
+module.exports = { PatientModel, MedicineModel, RoleModel, UserModel, FallModel, Sequelize };

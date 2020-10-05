@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -36,6 +36,17 @@
 					<span class="login100-form-title p-b-43">
 						Esqueci minha senha
 					</span>
+
+					<% if (messages.error) { %>
+						<div class="alert alert-danger" role="alert">
+							<%= messages.error %>
+						</div>
+					<% } %>  
+					<% if (messages.success) { %>
+						<div class="alert alert-success" role="alert">
+							<%= messages.success %>
+						</div>
+					<% } %> 
 					
 					
 					<div class="wrap-input100 validate-input" data-validate = "Insira um e-mail no formato: ex@abc.xyz">

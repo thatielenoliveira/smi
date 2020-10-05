@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const RoleModel = require('../config/database').RoleModel;
-const UserModel = require('../config/database').UserModel;
+const { UserModel, Sequelize } = require('../config/database');
 
 module.exports.isAdmin = function (req, res, next) {
     if (!req.user.username) {
@@ -27,7 +27,7 @@ module.exports.isAdmin = function (req, res, next) {
 }
 
 module.exports.resetToken = function (req, res) {
-    UserModel.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (err, user) {
+    UserModel.findOne({ where: { resetPasswordToken: req.params.token, resetPasswordExpires: { [Sequelize.Op.gte]: Sequelize.fn('NOW') } } }).then((user) => {
         if (!user) {
             req.flash('error', 'Link de redefinição de senha é inválido ou expirou.');
             return res.redirect('/forgot');

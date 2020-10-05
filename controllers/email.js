@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
-const UserModel = require('../config/database').UserModel;
+const { UserModel, Sequelize } = require('../config/database');
 
 module.exports.emailSenderForgotPassword = function (req, res) {
   async.waterfall(
@@ -17,7 +17,7 @@ module.exports.emailSenderForgotPassword = function (req, res) {
       function (token, done) {
         UserModel.findOne({ where: { email: req.body.email } }).then((user) => {
           if (!user) {
-            req.flash('forgotError', 'Este e-mail não está cadastrado no sistema.');
+            req.flash('error', 'Este e-mail não está cadastrado no sistema.');
             return res.redirect('/forgot');
           }
 
@@ -53,7 +53,7 @@ module.exports.emailSenderForgotPassword = function (req, res) {
 
         };
         smtpTransport.sendMail(mailOptions, function (error) {
-          req.flash('forgotSuccess', 'Um e-mail foi enviado para ' + user.email + ' com instruções.');
+          req.flash('success', 'Um e-mail foi enviado para ' + user.email + ' com instruções.');
           done(error, 'done');
         });
       }
@@ -68,25 +68,23 @@ module.exports.emailSenderForgotPassword = function (req, res) {
 module.exports.emailSenderResetPassword = function (req, res) {
   async.waterfall([
     function (done) {
-      UserModel.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (err, user) {
+      UserModel.findOne({ where: { resetPasswordToken: req.params.token, resetPasswordExpires: { [Sequelize.Op.gte]: Sequelize.fn('NOW') } } }).then((user) => {
         if (!user) {
           req.flash('error', 'Link de redefinição de senha é inválido ou expirou.');
           return res.redirect('back');
         }
         if (req.body.password === req.body.confirm) {
-          const sal = bcrypt.hashSync(req.body.password, salt);
+          const salt = bcrypt.genSaltSync(parseInt(process.env.SALT_ROUNDS));
+          const hash = bcrypt.hashSync(req.body.password, salt);
 
           user.password = hash;
           user.resetPasswordToken = undefined;
           user.resetPasswordExpires = undefined;
 
-          user.save(function (err) {
-            if (err) {
-              console.log(err)
-            }
-            req.logIn(user, function (err) {
-              done(err, user);
-            });
+          user.save().then((user) => {
+            done(null, user);
+          }).catch((error) => {
+            done(error);
           });
         } else {
           req.flash("error", "Senhas não conferem.");
@@ -108,8 +106,9 @@ module.exports.emailSenderResetPassword = function (req, res) {
         subject: 'Sua senha foi alterada',
         text: 'Olá,\n\n' +
           'Esta é uma confirmação que a senha da conta ' + user.email + ' foi alterada.\n\n' + '\n\n' +
-          'Agência de Inovação da UEA - AGIN \n' +
-          'Universidade do Estado do Amazonas - UEA'
+        
+
+          'Sistema de Monitoramento de Idosos'
       };
       smtpTransport.sendMail(mailOptions, function (err) {
         req.flash('success', 'Sua senha foi alterada.');

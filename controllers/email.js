@@ -116,6 +116,6 @@ module.exports.emailSenderResetPassword = function (req, res) {
       });
     }
   ], function (err) {
-    res.redirect('/');
+    res.redirect('/login');
   });
 }

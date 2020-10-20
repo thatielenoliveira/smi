@@ -1,4 +1,6 @@
+const FallModel = require('../config/database').FallModel;
 const PatientModel = require('../config/database').PatientModel;
+const MedicineModel = require('../config/database').MedicineModel;
 
 module.exports.createPatient = function (req, res) {
     PatientModel.create({
@@ -85,6 +87,31 @@ module.exports.deletePatient = function (req, res) {
     }).then((user) => {
         console.log('Patient Successfully Deleted');
         res.redirect('/patients');
+    }, (error) => {
+        console.error(error);
+    });
+}
+
+module.exports.viewPatient = function (req, res) {
+    PatientModel.findAll({ limit: 1, where: { id: req.params.id } }).then((user) => {
+        const currentYear = new Date().getFullYear();
+        FallModel.findAll({ where: { id: req.params.id } }).then((falls) => {
+            MedicineModel.findAll({ where: { patientId: req.params.id }, raw: true, nest: true }).then((meds) => {
+                for (let i = 0; i < meds.length; i++) {
+                    const schedule = JSON.parse(meds[i].schedule);
+                    let scheduleStr = schedule.length ?  schedule[0].toString() + ':00' : '';
+                    for (let i = 1; i < schedule.length; i++) {
+                        scheduleStr = scheduleStr +', ' + schedule[i] + ':00';
+                    }
+                    meds[i].schedule = scheduleStr;
+                }
+                res.render('viewPatient', { patient: user, currentYear: currentYear, falls: falls, medicines: meds });
+            }).catch((err) => {
+                console.error(err);
+            });
+        }).catch((err) => {
+            console.error(err);
+        });
     }, (error) => {
         console.error(error);
     });

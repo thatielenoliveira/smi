@@ -26,7 +26,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                         <h4 class="page-title">Pacientes</h4> </div>
                         <ol class="breadcrumb">
-                            <li><a href="#">Página Inicial</a></li>
+                            <li><a href="/home">Página Inicial</a></li>
                             <li class="active">Pacientes</li>
                         </ol>
                     </div>
@@ -60,7 +60,7 @@
                                         <% data.forEach(function(patient) { %>
                                             <tr>
                                                 <td><%- patient.id %></td>
-                                                <td><%- patient.fullName %></td>
+                                                <td><a href="/viewPatient/<%= patient.id %>"><%- patient.fullName %></a></td>
                                                 <td><%- currentYear- parseInt(patient.birthDate.substr(patient.birthDate.length - 4)) %></td>
                                                 <td><%- patient.gender %></td>
                                                 <td>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Visualizar Paciente</title>
+    <%- include('./partials/header') %>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+    <div id="wrapper">
+        <!-- Navigation -->
+
+        <%- include('./partials/side-bar') %>
+
+        <!-- Left navbar-header -->
+        <%- include('./partials/left-navbar-header') %>
+        <!-- Left navbar-header end -->
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Visualizar Paciente</h4>
+                    </div>
+                    <ol class="breadcrumb">
+                        <li><a href="/home">Página Inicial</a></li>
+                        <li><a href="/patients">Pacientes</a></li>
+                        <li class="active">Visualizar Paciente</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- /.row -->
+            <!-- .row -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <h3 class="box-title">Informações do Paciente</h3>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            <% patient.forEach(function(patient) { %>
+                            <div class="card">
+                                <div class="row">
+                                    <h4><%= patient.fullName %></h4>
+                                    <hr>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="row">
+                                        <label>Idade:
+                                            <%- currentYear- parseInt(patient.birthDate.substr(patient.birthDate.length - 4)) %></label>
+                                    </div>
+                                    <div class="row">
+                                        <label>Data de Nascimento: <%= patient.birthDate %></label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="row">
+                                        <label>Telefone de Emergência: <%= patient.emergencyPhone %></label>
+                                    </div>
+                                    <div class="row">
+                                        <label>Gênero: <%= patient.gender %></label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="row">
+                                        <label>Mora com: <%= patient.liveWith %></label>
+                                    </div>
+                                    <div class="row">
+                                        <label>Nome da Mãe: <%= patient.mothersName %></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <hr>
+                                <h3 class="box-title">Endereço do Paciente</h3>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            <hr>
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <h5>CEP: <%= patient.postalCode %></h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <h5>Logradouro: <%= patient.streetName %>, <%= patient.houseNumber %></h5>
+                                </div>
+                                <div class="row">
+                                    <h5>Bairro: <%= patient.district %></h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <h5>Complemento: <%= patient.complement ? patient.complement : "Sem Complemento" %></h5>
+                                </div>
+                                <div class="row">
+                                    <h5>Cidade: <%= patient.city %> - <%= patient.state %></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <h3 class="box-title">Quedas do Paciente</h3>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <% if (falls.length === 0) { %>
+                                    <tr>
+                                        <td>#</td>
+                                        <td>Ainda não há registro de quedas desse paciente.</td>
+                                    </tr>
+                                <% } else { %>
+                                    <% falls.forEach(function(fall) { %>
+                                        <tr>
+                                            <td><%- fall.id %></td>
+                                            <td><%- fall.datetime %></td>
+                                        </tr>
+                                    <% }) %>
+                                <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <h3 class="box-title">Medicamentos do Paciente</h3>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nome</th>
+                                        <th>Quantidade</th>
+                                        <th>Período</th>
+                                        <th>Horários</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <% if (medicines.length === 0) { %>
+                                    <tr>
+                                        <td>#</td>
+                                        <td>Ainda não há registro de medicamentos para esse paciente.</td>
+                                    </tr>
+                                <% } else { %>
+                                    <% medicines.forEach(function(medicine) { %>
+                                        <tr>
+                                            <td><%- medicine.id %></td>
+                                            <td><%- medicine.name %></td>
+                                            <td><%- medicine.amount %></td>
+                                            <td><%- medicine.days %></td>
+                                            <td><%- medicine.schedule %></td>
+                                        </tr>
+                                    <% }) %>
+                                <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <% }) %>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+        <%- include('./partials/footer') %>
+    </div>
+    <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <!--slimscroll JavaScript -->
+    <script src="/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="/js/waves.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="/js/custom.min.js"></script>
+    <!-- Mask Field -->
+    <script type="text/javascript" src="http://assets.locaweb.com.br/locastyle/2.0.6/javascripts/locastyle.js"></script>
+</body>
+
+</html>

@@ -30,4 +30,8 @@ router.get('/createPatient', authenticationMiddleware, function (req, res, next)
     PatientController.deletePatient(req, res);  
   });
 
+  router.get('/viewPatient/:id', authenticationMiddleware, function (req, res) {
+    PatientController.viewPatient(req, res);  
+  });
+
   module.exports = router;

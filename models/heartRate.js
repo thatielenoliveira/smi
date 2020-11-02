@@ -1,13 +1,12 @@
 module.exports = (sequelize, type) => {
     const User = require('./user')(sequelize, type);
   
-    const Fall = sequelize.define('falls', {
+    const HeartRate = sequelize.define('heartRate', {
       datetime: { type: type.DATE },
       rate: { type: type.REAL },
-      isValid: { type: type.BOOLEAN },
     }, { paranoid: true });
   
-    Fall.belongsTo(User);
+    HeartRate.belongsTo(User);
   
-    return Fall;
+    return HeartRate;
   }
